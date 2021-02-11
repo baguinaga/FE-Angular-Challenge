@@ -11,6 +11,7 @@ import { UserService, AuthenticationService } from '../services';
 })
 export class HomeComponent implements OnInit {
   currentUser: User;
+  currentEditUser: User;
   users = [];
 
   constructor(
@@ -24,6 +25,10 @@ export class HomeComponent implements OnInit {
     this.loadAllUsers();
   }
 
+  userSelect(user: User) {
+    this.currentEditUser = user;
+  }
+
   deleteUser(id: number) {
     this.userService.delete(id)
         .pipe(first())
@@ -31,15 +36,9 @@ export class HomeComponent implements OnInit {
   }
 
   editUser(user: User) {
-    this.userTransform(user);
     this.userService.edit(user)
         .pipe(first())
         .subscribe(() => this.loadAllUsers());
-  }
-
-  userTransform(user: User) {
-    //setting first name to John with dummy edit 
-    user.firstName = 'John';
   }
 
   private loadAllUsers() {

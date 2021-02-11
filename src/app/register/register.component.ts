@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { UserService, AuthenticationService } from '../services';
 
-@Component({ templateUrl: 'register.component.html' })
+@Component({
+  selector: 'app-register',
+  templateUrl: 'register.component.html',
+})
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   loading = false;
   submitted = false;
+  @Input() userData: object;
+  @Output() modUserData = new EventEmitter<object>();
 
   constructor(
       private formBuilder: FormBuilder,
@@ -44,6 +49,10 @@ export class RegisterComponent implements OnInit {
     }
 
     this.loading = true;
+    if (!!this.userData) {
+      return this.sendUserData(this.registerForm.value);
+    }
+
     this.userService.register(this.registerForm.value)
         .pipe(first())
         .subscribe(
@@ -53,5 +62,10 @@ export class RegisterComponent implements OnInit {
             error => {
               this.loading = false;
             });
+  }
+
+  sendUserData(value: object) {
+    const modifiedUserData =Object.assign(this.userData, this.registerForm.value);
+    this.modUserData.emit(modifiedUserData);
   }
 }
