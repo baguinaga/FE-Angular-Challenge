@@ -49,8 +49,11 @@ export class RegisterComponent implements OnInit {
     }
 
     this.loading = true;
+
+    // if selected userData is instanced from home component
     if (!!this.userData) {
-      return this.sendUserData(this.registerForm.value);
+      const modifiedUserData = Object.assign(this.userData, this.registerForm.value);
+      return this.modUserData.emit(modifiedUserData);
     }
 
     this.userService.register(this.registerForm.value)
@@ -62,10 +65,5 @@ export class RegisterComponent implements OnInit {
             error => {
               this.loading = false;
             });
-  }
-
-  sendUserData(value: object) {
-    const modifiedUserData =Object.assign(this.userData, this.registerForm.value);
-    this.modUserData.emit(modifiedUserData);
   }
 }
