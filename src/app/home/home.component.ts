@@ -30,6 +30,18 @@ export class HomeComponent implements OnInit {
         .subscribe(() => this.loadAllUsers());
   }
 
+  editUser(user: User) {
+    this.userTransform(user);
+    this.userService.edit(user)
+        .pipe(first())
+        .subscribe(() => this.loadAllUsers());
+  }
+
+  userTransform(user: User) {
+    //setting first name to John with dummy edit 
+    user.firstName = 'John';
+  }
+
   private loadAllUsers() {
     this.userService.getAll()
         .pipe(first())
