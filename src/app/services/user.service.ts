@@ -18,6 +18,10 @@ export class UserService {
     register(user: User) {
         return this.http.post(`${this.apiUrl}/users/register`, user);
     }
+    
+    edit(user: User) {
+        return this.http.put(`${this.apiUrl}/users/edit/${user.id}`, user);
+    }
 
     delete(id: number) {
         return this.http.delete(`${this.apiUrl}/users/${id}`);

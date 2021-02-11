@@ -11,6 +11,7 @@ import { UserService, AuthenticationService } from '../services';
 })
 export class HomeComponent implements OnInit {
   currentUser: User;
+  currentEditUser: User;
   users = [];
 
   constructor(
@@ -24,8 +25,18 @@ export class HomeComponent implements OnInit {
     this.loadAllUsers();
   }
 
+  userSelect(user: User) {
+    this.currentEditUser = user;
+  }
+
   deleteUser(id: number) {
     this.userService.delete(id)
+        .pipe(first())
+        .subscribe(() => this.loadAllUsers());
+  }
+
+  editUser(user: User) {
+    this.userService.edit(user)
         .pipe(first())
         .subscribe(() => this.loadAllUsers());
   }

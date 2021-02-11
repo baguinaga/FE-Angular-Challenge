@@ -28,6 +28,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return getUsers();
                 case url.match(/\/users\/\d+$/) && method === 'DELETE':
                     return deleteUser();
+                case url.match(/\/users\/edit\/\d+$/) && method === 'PUT':
+                    return editUser();
                 default:
                     // pass through any requests not handled above
                     return next.handle(request);
@@ -52,7 +54,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         function register() {
             const user = body
 
-            if (users.find(x => x.username === user.username)) {
+            if (users.find(x => x.id === user.username)) {
                 return error('Username "' + user.username + '" is already taken')
             }
 
@@ -74,6 +76,17 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             users = users.filter(x => x.id !== idFromUrl());
             localStorage.setItem('users', JSON.stringify(users));
             return ok();
+        }
+
+        function editUser() {
+            if (!isLoggedIn()) return unauthorized();
+            
+            const userUpdates = body;
+            const userIndex = users.findIndex(x => x.id === userUpdates.id);
+
+            users[userIndex] = userUpdates; //setting new details in local storage
+            localStorage.setItem('users', JSON.stringify(users)); //updating local storage
+            return ok(users);
         }
 
         // helper functions
