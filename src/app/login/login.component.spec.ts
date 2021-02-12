@@ -37,6 +37,6 @@ describe('LoginComponent', () => {
     const fixture = TestBed.createComponent(LoginComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to The HRS Angular Coding Challenge!');
+    expect(compiled.querySelector('h3').textContent).toContain('HRS Management Portal');
   });
 });

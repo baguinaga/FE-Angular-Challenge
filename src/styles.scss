@@ -1,1 +1,47 @@
-/* You can add global styles to this file, and also import other style files */
+//import global
+@import './styles/global/colors';
+@import './styles/global/typography';
+
+html,
+body,
+app-root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  top: 0;
+  font-size: 100%;
+}
+
+* {
+  font-family: $font-family;
+  color: $dark-grey;
+  line-height: $font-height;
+}
+
+.mgmt-portal__container--primary {
+  width: 100%;
+  height: 100%;
+}
+.mgmt-portal__container--outlet {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.mgmt-portal__full-page-wrapper {
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  background: url('./assets/pexels-nataliya-vaitkevich.jpg') no-repeat fixed center;
+}
+.mgmt-portal__formContainer {
+  margin: auto;
+  padding: 1rem;
+  max-width: 400px;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px 2px rgba(0, 0, 0, 0.4);
+  background: $white;
+}
