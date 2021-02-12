@@ -1,1 +1,92 @@
-/* You can add global styles to this file, and also import other style files */
+//import global
+@import './styles/global/colors';
+@import './styles/global/typography';
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+}
+
+body {
+  background-color: #f8f8ff;
+}
+
+* {
+  font-family: $font-family;
+  color: $dark-grey;
+  line-height: $font-height;
+}
+
+//establishes card pattern
+.mgmt-portal__card {
+  border-radius: 0.5rem;
+  box-shadow: 0px 2px 1px -1px rgb(0, 0, 0 / 20%), 
+  0px 1px 1px 0px rgb(0, 0, 0 / 15%), 
+  0px 1px 3px 0px rgb(0, 0, 0 / 15%);
+  background: $white;
+  padding: 1rem;
+  margin: auto;
+}
+
+.mgmt-portal__heading {
+  font-size: 1.2rem;
+  font-weight: $font-weight-heavy;
+}
+
+.mgmt-portal__modal {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.3);
+
+  .mgmt-portal__modal-body {
+    width: 100%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .mgmt-portal__modal-header {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.mgmt-portal__container--primary {
+  width: 100%;
+}
+.mgmt-portal__container--outlet {
+  width: 100%;
+  height: 100%;
+}
+.mgmt-portal__full-page-wrapper {
+  width: 100vw;
+  height: 100%;
+  max-width: 100%;
+  align-items: center;
+  justify-content: center;
+  &--bg {
+    @extend .mgmt-portal__full-page-wrapper;
+    height: 100vh;
+    display: flex; //consider moving out, used to justify login/reg components
+    background: url('./assets/pexels-nataliya-vaitkevich.jpg') no-repeat fixed center;
+  }
+}
+.mgmt-portal__formContainer {
+  @extend .mgmt-portal__card;
+  max-width: 400px;
+}
+.mgmt-portal__dashboardContainer {
+  @extend .mgmt-portal__card;
+  overflow-x: auto;
+  margin-top: 2rem;
+}

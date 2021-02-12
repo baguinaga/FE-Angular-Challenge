@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
   submitted = false;
   @Input() userData: object;
   @Output() modUserData = new EventEmitter<object>();
+  @Output() hideModalEvent = new EventEmitter<boolean>();
 
   constructor(
       private formBuilder: FormBuilder,
@@ -40,6 +41,10 @@ export class RegisterComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.registerForm.controls; }
 
+  emitHideStatus() {
+    this.hideModalEvent.emit(true);
+  }
+
   onSubmit() {
     this.submitted = true;
 
@@ -53,6 +58,7 @@ export class RegisterComponent implements OnInit {
     // if selected userData is instanced from home component
     if (!!this.userData) {
       const modifiedUserData = Object.assign(this.userData, this.registerForm.value);
+      this.loading = false; //should happen on async callback
       return this.modUserData.emit(modifiedUserData);
     }
 

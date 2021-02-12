@@ -1,14 +1,53 @@
-<h1>Hi {{currentUser.firstName}}!</h1>
-<p>You're logged in to your HRS App!!</p>
-<h3>All registered users:</h3>
-<ul>
-  <li *ngFor="let user of users">
-    {{user.username}} ({{user.firstName}} {{user.lastName}})
-    - <a (click)="deleteUser(user.id)" class="text-danger">Delete</a>
-    - <a (click)="userSelect(user)" class="text-danger">Edit</a>
-  </li>
-</ul>
+<!-- Icon by <a href="https://freeicons.io/profile/3">icon king1</a> on <a href="https://freeicons.io">freeicons.io</a>  -->
+<!-- Icon by <a href="https://freeicons.io/profile/3117">Mas Dhimas</a> on <a href="https://freeicons.io">freeicons.io</a> -->
+<!-- Icon by <a href="https://freeicons.io/profile/714">Raj Dev</a> on <a href="https://freeicons.io">freeicons.io</a> -->
+<div class='mgmt-portal__full-page-wrapper'>
+  <section class="mgmt-portal__dashboardContainer col-sm-12 col-lg-10">
+    <h1 class="mgmt-portal__heading"> Welcome back {{currentUser.firstName}} {{currentUser.lastName}}!</h1>
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <td>Last Login:</td>
+          <td> 11:15 AM 02/12/2021 ET</td>
+        </tr>
+        <tr>
+          <td>Total Entries:</td>
+          <td>{{users.length}}</td>
+        </tr>
+        <tr>
+          <td>Total Hrs. Logged</td>
+          <td>23</td>
+        </tr>        
+      </tbody>
+    </table>
+  </section>
 
-<div class="slide-out">
-  <app-register *ngIf="currentEditUser" [userData]="currentEditUser" (editUserEvent)="editUser($event)"></app-register>
+
+  <section class='mgmt-portal__dashboardContainer col-sm-12 col-lg-10'>
+    <h3 class="mgmt-portal__heading">Registered Users</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">No.</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Username</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users; index as i">
+          <th scope="row">{{i + 1}}</th>
+          <td>{{user.firstName}}</td>
+          <td>{{user.lastName}}</td>
+          <td>{{user.username}}</td>
+          <td><a (click)="userSelect(user)" class="text-warning">Edit</a>&nbsp;|&nbsp;<a (click)="deleteUser(user.id)" class="text-danger">Delete</a></td>
+        </tr>
+    </table>
+  </section>
+
+  <div [hidden]="isModalHidden" class="mgmt-portal__modal">
+    <app-register *ngIf="currentEditUser" [userData]="currentEditUser" (modUserData)="editUser($event)" (hideModalEvent)="hideModal($event)">
+    </app-register>
+  </div>
 </div>

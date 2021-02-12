@@ -5,9 +5,9 @@ import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '../services';
 
-@Component({ templateUrl: 'login.component.html' })
+@Component({ templateUrl: 'login.component.html'})
 export class LoginComponent implements OnInit {
-  title: string = 'The HRS Angular Coding Challenge';
+  title: string = 'HRS Management Portal'; //not needed
   loginForm: FormGroup;
   loading = false;
   submitted = false;
