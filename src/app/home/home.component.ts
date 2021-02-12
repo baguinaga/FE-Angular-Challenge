@@ -12,6 +12,7 @@ import { UserService, AuthenticationService } from '../services';
 export class HomeComponent implements OnInit {
   currentUser: User;
   currentEditUser: User;
+  isModalHidden: boolean = true;
   users = [];
 
   constructor(
@@ -25,8 +26,13 @@ export class HomeComponent implements OnInit {
     this.loadAllUsers();
   }
 
+  hideModal(hide: boolean) {
+    this.isModalHidden = hide;
+  }
+
   userSelect(user: User) {
     this.currentEditUser = user;
+    this.isModalHidden = false;
   }
 
   deleteUser(id: number) {
